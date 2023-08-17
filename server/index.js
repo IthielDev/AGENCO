@@ -14,19 +14,33 @@ const db = mysql.createConnection({
 });
 
 
-app.post("/odc", (req,res)=>{
+app.post("/odc1", (req,res)=>{
+    const idordendecompra = req.body.orden;
     const origen = req.body.origen;
     const fechadecompra = req.body.fechadecompra;
-    const costoporlibra = req.body.costoporlibra;
-    const libraspromedio = req.body.libraspromedio;
 
-    db.query('INSERT INTO OrdenDeCompra (origen,fechadecompra,costoporlibra,libraspromedio) VALUES(?,?,?,?)',[origen,fechadecompra,costoporlibra,libraspromedio],
+    db.query('INSERT INTO OrdenDeCompra (ID_OrdenDeCompra, Origen, FechaDeCompra) VALUES(?,?,?)',[idordendecompra,origen,fechadecompra],
     (err,result)=>{
         if(err){
             console.log(err);
-    }else{
-        res.send("Registro exitoso");
-    }}
+        }else{
+            res.send("Registro exitoso");
+        }}
+    );
+
+});
+
+app.post("/odc2", (req,res)=>{
+    const origen = req.body.origen;
+    const fechadecompra = req.body.fechadecompra;
+
+    db.query('INSERT INTO OrdenDeCompra (Origen, FechaDeCompra) VALUES(?,?)',[origen,fechadecompra],
+    (err,result)=>{
+        if(err){
+            console.log(err);
+        }else{
+            res.send("Registro exitoso");
+        }}
     );
 
 });
